@@ -15,14 +15,30 @@ class Play extends Phaser.Scene {
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0)
         // add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0)
-        // add spaceships 
-        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0)
+
+        // define the 'fly' animation using the frames from the spritesheet
+        this.anims.create({
+            key: 'fly', // animation key
+            frames: this.anims.generateFrameNumbers('spaceship-sprite', {
+                start: 0,  // starting frame 
+                end: 2    
+            }),
+            frameRate: 3, 
+            repeat: -1      // loop the animation indefinitely
+        });
+
+        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship-sprite', 0, 30).setOrigin(0, 0)
+        this.ship01.play('fly');
+
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0)
+        this.ship02.play('fly');
+
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0)
+        this.ship03.play('fly');
+
         this.ship04 = new Spaceship(this, game.config.width + borderUISize*9, borderUISize*7 + borderPadding*6, 'newspaceship', 0, 40).setOrigin(0,0)
         this.ship04.setScale(0.5); // 50% smaller
 
-        // Resize the hitbox
         this.ship04.setSize(31, 16); // Set the width and height of the hitbox
 
 
@@ -63,7 +79,7 @@ class Play extends Phaser.Scene {
             this.gameOver = true
         }, null, this)*/
 
-        // Add text to display the timer inside the box
+        // text to display the timer inside the box
         this.timerText = this.add.text(borderUISize*16 + borderPadding, borderUISize + borderPadding*4, `Time: ${this.remainingTime / 1000}`, {
             fontSize: '24px',
             color: '#ffffff',
@@ -75,7 +91,7 @@ class Play extends Phaser.Scene {
                 this.remainingTime -= 1000; // Subtract 1 second
                 this.timerText.setText(`Time: ${Math.max(this.remainingTime / 1000, 0)}`); // Update timer text
 
-                // Check if time has run out
+                // check if time has run out
                 if (this.remainingTime <= 0) {
                     this.clock.remove(false); // Stop the timer
                     this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', scoreConfig).setOrigin(0.5);

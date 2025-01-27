@@ -17,6 +17,12 @@ class Menu extends Phaser.Scene {
             startFrame: 0,
             endFrame: 9
         })
+        this.load.spritesheet('spaceship-sprite', './assets/spaceship-sprite.png', {
+          frameWidth: 63,
+          frameHeight: 32,
+          startFrame: 0,
+          endFrame: 2
+      })
 
         // load audio
         this.load.audio('sfx-select', './assets/sfx-select.wav')
