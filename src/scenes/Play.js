@@ -85,6 +85,9 @@ class Play extends Phaser.Scene {
             color: '#ffffff',
             fontStyle: 'bold',
         }).setOrigin(0.5);
+
+        let backgroundMusic = this.sound.play('background-music', { volume: 0.35, loop: true });
+
         this.clock = this.time.addEvent({
             delay: 1000, // Update every second (1000ms)
             callback: () => {        
@@ -97,25 +100,12 @@ class Play extends Phaser.Scene {
                     this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', scoreConfig).setOrigin(0.5);
                     this.add.text(game.config.width / 2, game.config.height / 2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
                     this.gameOver = true;
+                    this.sound.stopByKey('background-music');
                 }
             },
             callbackScope: this,
             loop: true, // Ensure the callback repeats every second
         });
-        // display timer
-        let timeConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 100
-        }
-        // this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, timeConfig)
     }
     update() {
         // check key input for restart
