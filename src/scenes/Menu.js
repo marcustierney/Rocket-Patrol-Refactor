@@ -23,7 +23,7 @@ class Menu extends Phaser.Scene {
           startFrame: 0,
           endFrame: 2
       })
-
+      
         // load audio
         this.load.audio('sfx-select', './assets/sfx-select.wav')
         this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
