@@ -51,9 +51,11 @@ class Play extends Phaser.Scene {
         }, null, this)
     }
     update() {
-          // check key input for restart
+        // check key input for restart
+        console.log(this.gameOver)
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.scene.restart()
+            console.log("restart")
         }
         this.starfield.tilePositionX -= 4
         if(!this.gameOver) { 
@@ -69,7 +71,7 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             console.log('kaboom ship 03')
             this.p1Rocket.reset()
-            this.shipExplode(this.ship03)   
+            this.shipExplode(this.ship03) 
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
             console.log('kaboom ship 02')
